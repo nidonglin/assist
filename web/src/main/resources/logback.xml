@@ -47,7 +47,7 @@
         </encoder>
     </appender>
 
-    <root level="info"/>
+    <root level="debug"/>
 
     <!--<logger name="org.apache" level="debug">-->
         <!--<appender-ref ref="STDOUT"/>-->
