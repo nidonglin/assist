@@ -95,8 +95,8 @@ public class StudentController  extends BaseCRUDController<Student, Long> {
         }
 
         String filename = file.getOriginalFilename().toLowerCase();
-        if(!filename.endsWith("xls")) {
-            model.addAttribute(Constants.ERROR, "导入的文件格式错误，允许的格式：csv、xls、xlsx");
+        if(!filename.endsWith("xlsx")) {
+            model.addAttribute(Constants.ERROR, "导入的文件格式错误，xls、xlsx");
             return false;
         }
         return true;

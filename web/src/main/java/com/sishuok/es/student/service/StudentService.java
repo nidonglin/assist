@@ -13,7 +13,12 @@ import org.apache.poi.hssf.eventusermodel.HSSFEventFactory;
 import org.apache.poi.hssf.eventusermodel.HSSFRequest;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopContext;
@@ -106,22 +111,31 @@ public class StudentService extends BaseService<Student, Long> {
 
             List<Student> dataList = Lists.newArrayList();
 
-            //输入流
-            bis = new BufferedInputStream(is);
-            // 创建 org.apache.poi.poifs.filesystem.Filesystem
-            POIFSFileSystem poifs = new POIFSFileSystem(bis);
-            // 从输入流 得到 Workbook(excel 部分)流
-            dis = poifs.createDocumentInputStream("Workbook");
-            // 构造 HSSFRequest
-            HSSFRequest req = new HSSFRequest();
+            XSSFWorkbook workBook = new XSSFWorkbook(is);
+            System.out.println("======"+workBook.getNumberOfSheets());
+            XSSFSheet sheet = workBook.getSheetAt(0);
+            if (sheet != null){
+                for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++){
+                    XSSFRow row = sheet.getRow(i);
+                    Student student=new Student();
+                    for (int j = 0; j < row.getPhysicalNumberOfCells(); j++){
+                        XSSFCell cell = row.getCell(j);
+                        cell.setCellType(Cell.CELL_TYPE_STRING);
+                        String cellStr =  cell.getStringCellValue();
+                        System.out.print("【"+cellStr+"】 ");
+                        if(cell.getColumnIndex()==0){
+                            student.setSno(cellStr);
+                        }else if(cell.getColumnIndex()==1){
+                            student.setName(cellStr);
+                        }else if(cell.getColumnIndex()==2){
+                            student.setClassname(cellStr);
+                        }
+                        dataList.add(student);
+                    }
+                    System.out.println();
+                }
 
-            // 添加监听器
-            req.addListenerForAllRecords(new Excel2003ImportListener(proxy, dataList, batchSize));
-            //  创建事件工厂
-            HSSFEventFactory factory = new HSSFEventFactory();
-            // 根据文档输入流处理事件
-            factory.processEvents(req, dis);
-
+            }
 
             //把最后剩下的不足batchSize大小
             if (dataList.size() > 0) {

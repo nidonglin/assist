@@ -58,36 +58,25 @@
             <form:hidden path="id"/>
 
             <div class="control-group">
-                <form:label path="name" cssClass="control-label">名称</form:label>
+                <form:label path="sno" cssClass="control-label">学号</form:label>
                 <div class="controls">
-                    <form:input path="name" cssClass="validate[required,custom[username],ajax[ajaxNameCall]]" placeholder="5到10个字母、数字、下划线"/>
+                    <form:input path="sno" cssClass="validate[required]" placeholder="学号必须唯一"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <form:label path="age" cssClass="control-label">年龄</form:label>
+                <form:label path="name" cssClass="control-label">姓名</form:label>
                 <div class="controls">
-                    <form:input path="age" cssClass="validate[required,custom[integer]]" placeholder="请输入年龄"/>
+                    <form:input path="name" cssClass="validate[required]" placeholder="姓名"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <form:label path="classname" cssClass="control-label">班级</form:label>
+                <div class="controls">
+                    <form:input path="classname" cssClass="validate[required]" placeholder="班级"/>
                 </div>
             </div>
 
-            <div class="control-group">
-                <form:label path="birthday" cssClass="control-label">出生日期</form:label>
-                <div class="controls input-append date">
-                    <form:input path="birthday" data-format="yyyy-MM-dd hh:mm:ss" placeholder="例如2013-02-07 11:58:11"/>
-                    <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <form:label path="sex" cssClass="control-label">性别</form:label>
-                <div class="controls">
-                    <form:select path="sex" cssClass="validate[required]">
-                        <form:option label="请选择" value=""/>
-                        <form:options items="${sexList}" itemLabel="info"></form:options>
-                    </form:select>
-                </div>
-            </div>
 
             <c:if test="${op eq '新增'}">
                 <c:set var="icon" value="icon-file-alt"/>

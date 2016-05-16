@@ -40,7 +40,7 @@
         <tr>
             <td class="check"><input type="checkbox" name="ids" value="${m.id}"></td>
             <td>
-                <a class="btn btn-link btn-edit" href="${ctx}/showcase/sample/${m.id}">${m.id}</a>
+                <a class="btn btn-link btn-edit" href="${ctx}/student/sample/${m.id}">${m.sno}</a>
             </td>
             <td>${m.name}</td>
             <td>${m.classname}</td>
