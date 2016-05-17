@@ -3,9 +3,7 @@ package com.sishuok.es.student.web.controller;
 import com.sishuok.es.common.Constants;
 import com.sishuok.es.common.entity.enums.BooleanEnum;
 import com.sishuok.es.common.web.controller.BaseCRUDController;
-import com.sishuok.es.showcase.excel.web.controller.entity.ExcelDataType;
-import com.sishuok.es.showcase.sample.entity.Sex;
-import com.sishuok.es.showcase.sample.service.SampleService;
+import com.sishuok.es.common.web.validate.ValidateResponse;
 import com.sishuok.es.student.entity.Student;
 import com.sishuok.es.student.service.StudentService;
 import com.sishuok.es.sys.user.entity.User;
@@ -16,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -58,7 +57,6 @@ public class StudentController  extends BaseCRUDController<Student, Long> {
 
     @Override
     protected void setCommonData(Model model) {
-        model.addAttribute("sexList", Sex.values());
         model.addAttribute("booleanList", BooleanEnum.values());
     }
 
@@ -100,5 +98,34 @@ public class StudentController  extends BaseCRUDController<Student, Long> {
             return false;
         }
         return true;
+    }
+
+
+    /**
+     * 验证返回格式
+     * 单个：[fieldId, 1|0, msg]
+     * 多个：[[fieldId, 1|0, msg],[fieldId, 1|0, msg]]
+     *
+     * @param fieldId
+     * @param fieldValue
+     * @return
+     */
+    @RequestMapping(value = "validate", method = RequestMethod.GET)
+    @ResponseBody
+    public Object validate(
+            @RequestParam("fieldId") String fieldId, @RequestParam("fieldValue") String fieldValue,
+            @RequestParam(value = "id", required = false) Long id) {
+
+        ValidateResponse response = ValidateResponse.newInstance();
+        if ("sno".equals(fieldId)) {
+            Student student = getStudentService().findBySno(fieldValue);
+            if (student == null || (student.getId().equals(id) && student.getSno().equals(fieldValue))) {
+                //如果msg 不为空 将弹出提示框
+                response.validateSuccess(fieldId, "");
+            } else {
+                response.validateFail(fieldId, "学号已被其他人使用");
+            }
+        }
+        return response.result();
     }
 }

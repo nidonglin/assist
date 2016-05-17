@@ -33,9 +33,12 @@
         <th style="width: 100px" sort="id">学号</th>
         <th style="width: 150px" sort="name">姓名</th>
         <th style="width: 150px" sort="name">班级</th>
-        <th style="width: 150px" sort="name">智育成绩</th>
-        <th style="width: 150px" sort="name">德育成绩</th>
-        <th style="width: 150px" sort="name">综合成绩</th>
+        <th style="width: 150px" sort="name">申请时间</th>
+        <th style="width: 150px" sort="name">资助类型</th>
+        <th style="width: 150px" sort="name">资助等级</th>
+        <th style="width: 150px" sort="name">理由</th>
+        <th style="width: 150px" sort="name">审核状态</th>
+        <th style="width: 150px" sort="name">是否发放</th>
     </tr>
     </thead>
     <tbody>
@@ -43,13 +46,16 @@
         <tr>
             <td class="check"><input type="checkbox" name="ids" value="${m.id}"></td>
             <td>
-                <a class="btn btn-link btn-edit" href="${ctx}/student/sample/${m.id}">${m.sno}</a>
+                <a class="btn btn-link btn-edit" href="${ctx}/fellowship/sample/${m.id}">${m.sno}</a>
             </td>
             <td>${m.name}</td>
             <td>${m.classname}</td>
-            <td>${m.ie}</td>
-            <td>${m.me}</td>
-            <td>${m.obs}</td>
+            <td>${m.date}</td>
+            <td><c:if test="${m.type==1}">奖学金</c:if><c:if test="${m.type==2}">助学金</c:if></td>
+            <td><c:if test="${m.level==1}">一等</c:if><c:if test="${m.level==2}">二等</c:if><c:if test="${m.level==3}">三等</c:if></td>
+            <td>${m.remark}</td>
+            <td><c:if test="${m.state==0}">待审核</c:if><c:if test="${m.state==1}">通过</c:if><c:if test="${m.state==2}">驳回</c:if></td>
+            <td><c:if test="${m.grant==0}">未发放</c:if><c:if test="${m.grant==1}">已发放</c:if></td>
         </tr>
     </c:forEach>
     </tbody>

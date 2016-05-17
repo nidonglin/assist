@@ -30,12 +30,8 @@
             |
             <a class="reverse-all" href="javascript:;">反选</a>
         </th>
-        <th style="width: 100px" sort="id">学号</th>
+        <th style="width: 100px" sort="id">职工号</th>
         <th style="width: 150px" sort="name">姓名</th>
-        <th style="width: 150px" sort="name">班级</th>
-        <th style="width: 150px" sort="name">智育成绩</th>
-        <th style="width: 150px" sort="name">德育成绩</th>
-        <th style="width: 150px" sort="name">综合成绩</th>
     </tr>
     </thead>
     <tbody>
@@ -43,13 +39,9 @@
         <tr>
             <td class="check"><input type="checkbox" name="ids" value="${m.id}"></td>
             <td>
-                <a class="btn btn-link btn-edit" href="${ctx}/student/sample/${m.id}">${m.sno}</a>
+                <a class="btn btn-link btn-edit" href="${ctx}/teacher/sample/${m.id}">${m.workno}</a>
             </td>
             <td>${m.name}</td>
-            <td>${m.classname}</td>
-            <td>${m.ie}</td>
-            <td>${m.me}</td>
-            <td>${m.obs}</td>
         </tr>
     </c:forEach>
     </tbody>

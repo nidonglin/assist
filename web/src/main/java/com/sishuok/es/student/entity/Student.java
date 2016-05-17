@@ -30,6 +30,18 @@ public class Student extends BaseEntity<Long> {
     @Column(name = "classname")
     private String classname;
 
+    @NotNull(message = "{not.null}")
+    @Column(name = "ie")
+    private String ie;//智育
+
+    @NotNull(message = "{not.null}")
+    @Column(name = "me")
+    private String me;//德育
+
+    @NotNull(message = "{not.null}")
+    @Column(name = "obs")
+    private String obs;//综合
+
     public String getName() {
         return name;
     }
@@ -55,12 +67,39 @@ public class Student extends BaseEntity<Long> {
         this.classname = classname;
     }
 
+    public String getIe() {
+        return ie;
+    }
+
+    public void setIe(String ie) {
+        this.ie = ie;
+    }
+
+    public String getMe() {
+        return me;
+    }
+
+    public void setMe(String me) {
+        this.me = me;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "sno='" + sno + '\'' +
                 ", name='" + name + '\'' +
                 ", classname='" + classname + '\'' +
+                ", ie=" + ie +
+                ", me=" + me +
+                ", obs=" + obs +
                 '}';
     }
 }

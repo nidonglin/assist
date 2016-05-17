@@ -7,14 +7,10 @@ import com.sishuok.es.maintain.notification.service.NotificationApi;
 import com.sishuok.es.student.entity.Student;
 import com.sishuok.es.student.repository.StudentRepository;
 import com.sishuok.es.sys.user.entity.User;
+import com.sishuok.es.sys.user.service.UserService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.poi.hssf.eventusermodel.HSSFEventFactory;
-import org.apache.poi.hssf.eventusermodel.HSSFRequest;
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -25,14 +21,9 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +50,8 @@ public class StudentService extends BaseService<Student, Long> {
 
     @Autowired
     private NotificationApi notificationApi;
+    @Autowired
+    private UserService userService;
 
     private final String storePath = "upload/excel";
     private final String EXPORT_FILENAME_PREFIX = "excel";
@@ -67,6 +60,9 @@ public class StudentService extends BaseService<Student, Long> {
         this.notificationApi = notificationApi;
     }
 
+    public Student findBySno(String sno){
+        return getStudentRepository().findBySno(sno);
+    }
     /**
      * 如果主键冲突 覆盖，否则新增
      * @param dataList
@@ -82,6 +78,10 @@ public class StudentService extends BaseService<Student, Long> {
             }
             if(st==null){
                 save(data);
+                User user=new User();
+                user.setUsername(data.getSno());
+                user.setPassword("123456");
+                userService.save(user);
             }else{
                 try {
                     BeanUtils.copyProperties(st,data);
@@ -129,6 +129,12 @@ public class StudentService extends BaseService<Student, Long> {
                             student.setName(cellStr);
                         }else if(cell.getColumnIndex()==2){
                             student.setClassname(cellStr);
+                        }else if(cell.getColumnIndex()==3){
+                            student.setIe(cellStr);
+                        }else if(cell.getColumnIndex()==4){
+                            student.setMe(cellStr);
+                        }else if(cell.getColumnIndex()==5){
+                            student.setObs(cellStr);
                         }
                         dataList.add(student);
                     }

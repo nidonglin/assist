@@ -4,10 +4,10 @@
 <div class="panel">
 
     <ul class="nav nav-tabs">
-        <shiro:hasPermission name="student:sample:create">
+        <shiro:hasPermission name="teacher:sample:create">
         <c:if test="${op eq '新增'}">
             <li ${op eq '新增' ? 'class="active"' : ''}>
-                <a href="${ctx}/student/sample/create?BackURL=<es:BackURL/>">
+                <a href="${ctx}/teacher/sample/create?BackURL=<es:BackURL/>">
                     <i class="icon-file-alt"></i>
                     新增
                 </a>
@@ -18,23 +18,23 @@
 
         <c:if test="${not empty m.id}">
             <li ${op eq '查看' ? 'class="active"' : ''}>
-                <a href="${ctx}/student/sample/${m.id}?BackURL=<es:BackURL/>">
+                <a href="${ctx}/teacher/sample/${m.id}?BackURL=<es:BackURL/>">
                     <i class="icon-eye-open"></i>
                     查看
                 </a>
             </li>
-            <shiro:hasPermission name="student:sample:update">
+            <shiro:hasPermission name="teacher:sample:update">
             <li ${op eq '修改' ? 'class="active"' : ''}>
-                <a href="${ctx}/student/sample/${m.id}/update?BackURL=<es:BackURL/>">
+                <a href="${ctx}/teacher/sample/${m.id}/update?BackURL=<es:BackURL/>">
                     <i class="icon-edit"></i>
                     修改
                 </a>
             </li>
             </shiro:hasPermission>
 
-            <shiro:hasPermission name="student:sample:delete">
+            <shiro:hasPermission name="teacher:sample:delete">
             <li ${op eq '删除' ? 'class="active"' : ''}>
-                <a href="${ctx}/student/sample/${m.id}/delete?BackURL=<es:BackURL/>">
+                <a href="${ctx}/teacher/sample/${m.id}/delete?BackURL=<es:BackURL/>">
                     <i class="icon-trash"></i>
                     删除
                 </a>
@@ -58,9 +58,9 @@
             <form:hidden path="id"/>
 
             <div class="control-group">
-                <form:label path="sno" cssClass="control-label">学号</form:label>
+                <form:label path="workno" cssClass="control-label">职工号</form:label>
                 <div class="controls">
-                    <form:input path="sno" cssClass="validate[required,custom[sno],ajax[ajaxSnoCall]]" placeholder="学号必须唯一"/>
+                        <form:input path="workno" cssClass="validate[required,custom[workno],ajax[ajaxWorknoCall]]" placeholder="职工号必须唯一"/>
                 </div>
             </div>
 
@@ -70,31 +70,6 @@
                     <form:input path="name" cssClass="validate[required]" placeholder="姓名"/>
                 </div>
             </div>
-            <div class="control-group">
-                <form:label path="classname" cssClass="control-label">班级</form:label>
-                <div class="controls">
-                    <form:input path="classname" cssClass="validate[required]" placeholder="班级"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <form:label path="ie" cssClass="control-label">智育成绩</form:label>
-                <div class="controls">
-                    <form:input path="ie" cssClass="validate[required]" placeholder="智育成绩"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <form:label path="me" cssClass="control-label">德育成绩</form:label>
-                <div class="controls">
-                    <form:input path="me" cssClass="validate[required]" placeholder="德育成绩"/>
-                </div>
-            </div>
-            <div class="control-group">
-                <form:label path="obs" cssClass="control-label">综合成绩</form:label>
-                <div class="controls">
-                    <form:input path="obs" cssClass="validate[required]" placeholder="综合成绩"/>
-                </div>
-            </div>
-
 
             <c:if test="${op eq '新增'}">
                 <c:set var="icon" value="icon-file-alt"/>
@@ -135,8 +110,8 @@
             </c:when>
             <c:otherwise>
                 //自定义ajax验证  ajax[ajaxNameCall] 放到验证规则的最后（放到中间只有当submit时才验证）
-                $.validationEngineLanguage.allRules.ajaxSnoCall= {
-                    "url": "${ctx}/student/sample/validate",
+                $.validationEngineLanguage.allRules.ajaxWorknoCall= {
+                    "url": "${ctx}/teacher/sample/validate",
                     //动态提取的数据。验证时一起发送
                     extraDataDynamic : ['#id'],
                     //验证失败时的消息
@@ -145,7 +120,7 @@
                     //"alertTextOk": "该名称可以使用",
                     "alertTextLoad": "* 正在验证，请稍等。。。"
                 };
-                $.validationEngineLanguage.allRules.sno={
+                $.validationEngineLanguage.allRules.workno={
                     "regex": /^\w{1,20}$/,
                     "alertText": "* 5到10个字母、数字、下划线"
                 };
