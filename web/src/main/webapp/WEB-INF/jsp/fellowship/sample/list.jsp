@@ -29,13 +29,13 @@
                             <li>
                                 <a class="btn btn-link status-success">
                                     <i class="icon-pencil"></i>
-                                    审核成功
+                                    通过
                                 </a>
                             </li>
                             <li>
                                 <a class="btn btn-link status-fail">
                                     <i class="icon-pencil"></i>
-                                    审核失败
+                                    驳回
                                 </a>
                             </li>
                         </ul>

@@ -37,7 +37,7 @@
 
     <%@include file="userinfo.jsp"%>
 
-    <div class="ui-layout-north index-header">
+    <div class="ui-layout-north">
         <%@include file="header.jsp"%>
     </div>
 

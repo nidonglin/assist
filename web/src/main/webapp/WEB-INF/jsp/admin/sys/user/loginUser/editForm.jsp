@@ -55,12 +55,12 @@
         </c:if>
 
         <c:if test="${op eq '查看个人资料'}">
-            <br/>
+            <%--<br/>
             <h4 class="hr">组织机构和工作职务</h4>
             <div class="span8">
                 <c:set var="onlyDisplayShow" value="true"/>
                 <%@include file="../organizations.jspf"%>
-            </div>
+            </div>--%>
         </c:if>
         <div class="clearfix"></div>
         <c:if test="${op eq '查看个人资料' and not empty lastOnline}">

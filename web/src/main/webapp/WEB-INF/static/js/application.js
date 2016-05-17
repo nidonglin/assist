@@ -2048,7 +2048,6 @@ $.table = {
      * @param backURL
      */
     reloadTable: function (table, url, backURL) {
-
         if(!url) {
             url = $.table.tableURL(table);
         }
