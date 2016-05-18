@@ -84,7 +84,12 @@ public class StudentService extends BaseService<Student, Long> {
                 userService.save(user);
             }else{
                 try {
-                    BeanUtils.copyProperties(st,data);
+                    st.setClassname(data.getClassname());
+                    st.setIe(data.getIe());
+                    st.setName(data.getName());
+                    st.setSno(data.getSno());
+                    st.setMe(data.getMe());
+                    st.setObs(data.getObs());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
