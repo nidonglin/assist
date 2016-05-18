@@ -27,34 +27,9 @@
         <form:hidden path="id"/>
         <div id="baseinfo">
             <h4 class="hr">奖学金申请</h4>
-
-                <%--<div class="control-group span4">
-                    <form:label path="type" cssClass="control-label">申请类型</form:label>
-                    <div class="controls inline-radio">
-                        <input type="radio" name="type" value="1" checked> 奖学金
-                        <input type="radio" name="type" value="2"> 助学金
-                    </div>
-                </div>
-    --%>
-
-            <div class="control-group span4">
-                <form:label path="sno" cssClass="control-label">学号</form:label>
-                <div class="controls">
-                    <form:input path="sno" cssClass="validate[required,custom[email],ajax[ajaxCall]]"
-                                placeholder="学号"/>
-                </div>
-            </div>
-            <div class="control-group span4">
-                <form:label path="date" cssClass="control-label">创建时间</form:label>
-                <div class="controls input-append date">
-                    <form:input path="date"
-                                data-format="yyyy-MM-dd hh:mm:ss"
-                                data-position="bottom-left"
-                                placeholder="默认当前时间"/>
-                    <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
-                </div>
-            </div>
             <input type="hidden" name="type" value="2">
+            <input type="hidden" name="state" value="0">
+            <input type="hidden" name="grant" value="0">
             <div class="control-group span4">
                 <form:label path="level" cssClass="control-label">等级</form:label>
                 <div class="controls inline-radio">

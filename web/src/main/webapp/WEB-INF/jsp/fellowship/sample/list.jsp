@@ -17,7 +17,12 @@
     <div class="row-fluid tool ui-toolbar">
         <div class="span4">
             <div class="btn-group">
-
+                <shiro:hasPermission name="fellowship:sample:create">
+                    <a class="btn btn-create">
+                        <i class="icon-file-alt"></i>
+                        申请
+                    </a>
+                </shiro:hasPermission>
                 <shiro:hasPermission name="fellowship:sample:audit">
                     <div class="btn-group">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
