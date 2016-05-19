@@ -46,6 +46,23 @@
                         </ul>
                     </div>
                 </shiro:hasPermission>
+                <shiro:hasPermission name="fellowship:sample:grant">
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="icon-pencil"></i>
+                            是否发放
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="btn btn-link grant-success">
+                                    <i class="icon-pencil"></i>
+                                    发放
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </shiro:hasPermission>
             </div>
         </div>
         <div class="span8">
@@ -71,6 +88,23 @@
             "${ctx}/fellowship/sample/audit/status/1?" + checkbox.serialize()
                     :
             "${ctx}/fellowship/sample/audit/status/2?" + checkbox.serialize();
+            $.app.confirm({
+                title : title,
+                ok : function() {
+                    var table = $("#table");
+                    $.table.reloadTable(table, url , $.table.tableURL(table));
+                }
+            });
+        });
+
+        $(".grant-success").click(function() {
+
+            var checkbox = $.table.getAllSelectedCheckbox($(".table"));
+            if(checkbox.size() == 0) {
+                return;
+            }
+            var title = "发放";
+            var url = "${ctx}/scholarship/sample/grant/status/1?" + checkbox.serialize();
             $.app.confirm({
                 title : title,
                 ok : function() {

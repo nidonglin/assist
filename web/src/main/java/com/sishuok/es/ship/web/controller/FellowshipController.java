@@ -52,12 +52,12 @@ public class FellowshipController   extends BaseController<Ship, Long> {
         //setResourceIdentity("fellowship:sample");
     }
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     @PageableDefaults(sort = "id=desc")
     public String lista(@CurrentUser User user,
                        Searchable searchable, Model model) {
 
-        searchable.addSearchFilter("type", SearchOperator.eq,1);
+        searchable.addSearchFilter("type", SearchOperator.eq,2);
         if(studentService.findBySno(user.getUsername())!=null){
             searchable.addSearchFilter("sno",SearchOperator.eq,user.getUsername());
         }
@@ -105,9 +105,9 @@ public class FellowshipController   extends BaseController<Ship, Long> {
         List<Ship> shipList = new ArrayList<Ship>();
         for (Long id : ids) {
             Ship ship = baseService.findOne(id);
-            Student student = studentService.findBySno(ship.getSno());
-            ship.setName(student.getName());
-            ship.setClassname(student.getClassname());
+            Student st = studentService.findBySno(ship.getSno());
+            ship.setName(st==null?"":st.getName());
+            ship.setClassname(st==null?"":st.getClassname());
             if (ship.getState()!= 0) {
                 redirectAttributes.addFlashAttribute(Constants.ERROR, "数据中有已通过审核的，不能重复审核！");
                 return "redirect:" + request.getAttribute(Constants.BACK_URL);

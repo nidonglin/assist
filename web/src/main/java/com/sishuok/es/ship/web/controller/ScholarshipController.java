@@ -108,9 +108,9 @@ public class ScholarshipController   extends BaseController<Ship, Long> {
         List<Ship> shipList = new ArrayList<Ship>();
         for (Long id : ids) {
             Ship ship = baseService.findOne(id);
-            Student student = studentService.findBySno(ship.getSno());
-            ship.setName(student.getName());
-            ship.setClassname(student.getClassname());
+            Student st = studentService.findBySno(ship.getSno());
+            ship.setName(st==null?"":st.getName());
+            ship.setClassname(st==null?"":st.getClassname());
             if (ship.getState()!= 0) {
                 redirectAttributes.addFlashAttribute(Constants.ERROR, "数据中有已通过审核的，不能重复审核！");
                 return "redirect:" + request.getAttribute(Constants.BACK_URL);

@@ -23,12 +23,6 @@
                         申请
                     </a>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="student:sample:update">
-                    <a id="update" class="btn btn-update">
-                        <i class="icon-edit"></i>
-                        修改
-                    </a>
-                </shiro:hasPermission>
                 <shiro:hasPermission name="scholarship:sample:audit">
                     <div class="btn-group">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
