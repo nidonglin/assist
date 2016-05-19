@@ -27,9 +27,16 @@
         <form:hidden path="id"/>
         <div id="baseinfo">
             <h4 class="hr">奖学金申请</h4>
-            <input type="hidden" name="type" value="1">
             <input type="hidden" name="state" value="0">
             <input type="hidden" name="grant" value="0">
+            <div class="control-group span4">
+                <form:label path="type" cssClass="control-label">类型</form:label>
+                <div class="controls inline-radio">
+                    <input type="radio" name="type" value="1" checked> 校奖学金
+                    <input type="radio" name="type" value="2"> 国家奖学金
+                    <input type="radio" name="type" value="3"> 励志奖学金
+                </div>
+            </div>
             <div class="control-group span4">
                 <form:label path="level" cssClass="control-label">等级</form:label>
                 <div class="controls inline-radio">

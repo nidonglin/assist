@@ -51,7 +51,11 @@
             <td>${m.name}</td>
             <td>${m.classname}</td>
             <td>${m.date}</td>
-            <td><c:if test="${m.type==1}">奖学金</c:if><c:if test="${m.type==2}">助学金</c:if></td>
+            <td><c:if test="${m.type==1}">校奖学金</c:if>
+                <c:if test="${m.type==2}">国家学金</c:if>
+                <c:if test="${m.type==3}">励志学金</c:if>
+                <c:if test="${m.type==4}">助学金</c:if>
+            </td>
             <td><c:if test="${m.level==1}">一等</c:if><c:if test="${m.level==2}">二等</c:if><c:if test="${m.level==3}">三等</c:if></td>
             <td>${m.remark}</td>
             <td><c:if test="${m.state==0}">待审核</c:if><c:if test="${m.state==1}">通过</c:if><c:if test="${m.state==2}">驳回</c:if></td>

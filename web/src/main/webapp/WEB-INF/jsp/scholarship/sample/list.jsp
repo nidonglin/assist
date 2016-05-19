@@ -45,6 +45,21 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="btn-group last">
+                        <a class="btn no-disabled dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-laptop"></i>
+                            Excel导出
+                            <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="btn no-disabled" id='export-excel-2007'>
+                                    <i class="icon-level-up"></i>
+                                    导出Excel
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </shiro:hasPermission>
                 <shiro:hasPermission name="scholarship:sample:grant">
                     <div class="btn-group">
@@ -111,6 +126,10 @@
                     $.table.reloadTable(table, url , $.table.tableURL(table));
                 }
             });
+        });
+        $("#export-excel-2007").click(function () {
+            var searchArgs = $("#searchForm").serialize();
+            window.location.href = "${ctx}/scholarship/sample/export?type=excel2007&" + searchArgs;
         });
     });
 </script>

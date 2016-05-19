@@ -9,6 +9,7 @@ import com.sishuok.es.common.web.controller.BaseCRUDController;
 import com.sishuok.es.common.web.controller.BaseController;
 import com.sishuok.es.ship.entity.Ship;
 import com.sishuok.es.ship.service.ShipService;
+import com.sishuok.es.showcase.excel.web.controller.entity.ExcelDataType;
 import com.sishuok.es.showcase.status.audit.entity.Audit;
 import com.sishuok.es.student.entity.Student;
 import com.sishuok.es.student.service.StudentService;
@@ -22,8 +23,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +52,16 @@ public class ScholarshipController   extends BaseController<Ship, Long> {
     @Autowired
     private ShipService baseService;
     private static final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+    @Autowired
+    private ServletContext servletContext;
+    /**
+     * 导出excel存储的目录
+     */
+    private String contextRootPath;
+    @PostConstruct
+    public void afterPropertiesSet() {
+        contextRootPath = servletContext.getRealPath("/");
+    }
 
     public ScholarshipController() {
         //setListAlsoSetCommonData(true);
@@ -60,7 +74,7 @@ public class ScholarshipController   extends BaseController<Ship, Long> {
     public String lista(@CurrentUser User user,
                        Searchable searchable, Model model) {
 
-        searchable.addSearchFilter("type", SearchOperator.eq,1);
+        searchable.addSearchFilter("type", SearchOperator.lte,3);
         if(studentService.findBySno(user.getUsername())!=null){
             searchable.addSearchFilter("sno",SearchOperator.eq,user.getUsername());
         }
@@ -154,5 +168,17 @@ public class ScholarshipController   extends BaseController<Ship, Long> {
         redirectAttributes.addFlashAttribute(Constants.MESSAGE, "操作成功！");
 
         return "redirect:" + request.getAttribute(Constants.BACK_URL);
+    }
+    @RequestMapping(value = "/export", method = RequestMethod.GET)
+    public String exportExcel(
+            @CurrentUser User user,
+            Searchable searchable,
+            RedirectAttributes redirectAttributes) throws IOException {
+
+        searchable.addSearchFilter("type",SearchOperator.lte, 3);
+        baseService.exportExcel2007(user, contextRootPath, searchable);
+
+        redirectAttributes.addFlashAttribute(Constants.MESSAGE, "导出任务已提交，任务执行完成后会在页面右上角的“我的通知”中通知你");
+        return redirectToUrl(null);
     }
 }

@@ -26,8 +26,8 @@
         <es:showGlobalError commandName="m"/>
         <form:hidden path="id"/>
         <div id="baseinfo">
-            <h4 class="hr">奖学金申请</h4>
-            <input type="hidden" name="type" value="2">
+            <h4 class="hr">助学金申请</h4>
+            <input type="hidden" name="type" value="4">
             <input type="hidden" name="state" value="0">
             <input type="hidden" name="grant" value="0">
             <div class="control-group span4">
